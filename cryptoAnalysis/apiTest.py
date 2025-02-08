@@ -1,17 +1,14 @@
+import base58
 from solana.rpc.api import Client
-from solathon import PublicKey
+from solders.pubkey import Pubkey
 
-solana_client = Client("https://api.mainnet-beta.solana.com")
-token_mint = PublicKey("HAWKThXRcNL9ZGZKqgUXLm4W8tnRZ7U6MVdEepSutj34")
+solana_client = Client("https://thrilling-maximum-road.solana-mainnet.quiknode.pro/e7811612a1630729d1de22f5d9a92d3d040d128f")
 
-# Get largest token accounts
-largest_accounts = solana_client.get_token_largest_accounts(token_mint)
-total_supply = solana_client.get_token_supply(token_mint)
+encoded_pubkey = "HAWKThXRcNL9ZGZKqgUXLm4W8tnRZ7U6MVdEepSutj34"
+decoded_pubkey = base58.b58decode(encoded_pubkey)
 
-# Calculate percentage for each account
-if largest_accounts["result"] and total_supply["result"]:
-    total_supply_amount = int(total_supply["result"]["value"]["amount"])
-    for account in largest_accounts["result"]["value"]:
-        balance = int(account["amount"])
-        percentage = (balance / total_supply_amount) * 100
-        print(f"Account: {account['address']}, Balance: {balance}, Percentage: {percentage:.2f}%")
+print(len(decoded_pubkey)) #32 bytes
+
+address = Pubkey(decoded_pubkey)
+
+print(solana_client.get_token_largest_accounts(address))
