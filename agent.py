@@ -129,3 +129,6 @@ def crypto_agent(token_address):
     # print(f"Coin Name: {parsed_json['name']}")
     # print(f"Creator Info: {parsed_json['owner_portfolio']}")
     # print(f"Legitimacy: {parsed_json['coin_legitimacy']}")
+
+
+# crypto_agent("HAWKThXRcNL9ZGZKqgUXLm4W8tnRZ7U6MVdEepSutj34")

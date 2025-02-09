@@ -65,12 +65,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import PieChart from '../components/Piechart';
+import { ClipLoader } from 'react-spinners';
+import { Card } from 'react-bootstrap';
 
 const ResultsPage = () => {
   const { search } = useLocation();
   const query = new URLSearchParams(search).get('query');
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [chartData, setChartData] = useState({ labels: [], values: [] });
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -92,8 +96,22 @@ const ResultsPage = () => {
     }
   }, [query]);
 
+  useEffect(() => {
+    // Only transform chart data if result is populated
+    if (result && result[0]) {
+      const preChartdata = result[0];
+      var labels = preChartdata.map(item => item[0]);
+      labels.push("Everyone Else")
+      var values = preChartdata.map(item => item[1]);
+      const totalValue = values.reduce((acc, value) => acc + value, 0);
+      values.push(100 - totalValue)
+      setChartData({ labels, values });  // Set chartData state
+    }
+  }, [result]);  // Re-run this effect when `result` changes
 
   // console.log(result[1]); // Check how many items are received
+
+
 
 // ###############################################################################################
 // YOUSUF ADD PIE CHART, TOP 3 INVESTOR PERCENTAGE, TOP 10 INVESTOR PERCENTAGE
@@ -101,31 +119,69 @@ const ResultsPage = () => {
 return (
   <div className="container mt-5">
     <br></br>
-    <h2>Result for: {query}</h2>
     {result !== null ? (
       <div>
-        <h2>Addresses and Percentages:</h2>
+        <h2>Result for: {result[2].name}</h2>
+        <h7>({query})</h7>
+        {/* Display Cryptocurrency Information (result[2]) */}
+        <br></br><br></br><br></br>
+        <h2>Cryptocurrency Information:</h2>
+        {/* list-style-type: none" */}
+
+        <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  <Card.Text>
+                  <strong>Owner Portfolio:</strong> {result[2].owner_portfolio}
+                  <br></br><br></br>
+                  <strong>Legitimacy:</strong> {result[2].coin_legitimacy}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+        {/* Display Addresses and Percentages */}
+        <br></br>
+
+        {/* Display Web Scrape Details */}
+        <h2>Web Scrape Details:</h2>
+        
         <ul>
-          {result[0].map(([address, percentage], index) => (
-            <li key={index}>
-              <strong>Address:</strong> {address} 
-              <strong>   --    Percentage:</strong> {percentage}%
-              <br></br><br></br>
+          {result[1].map((item, index) => (
+            <li key={index} style={{ listStyleType: 'none', marginBottom: '10px' }}>
+              <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  <Card.Text>
+                    {item}{' '}
+                    {item.includes('Enabled') ? (
+                      <span style={{ color: 'red' }}>❌</span>
+                    ) : item.includes('Disabled') ? (
+                      <span style={{ color: 'green' }}>✅</span>
+                    ) : item.includes('Mutable') ? (
+                      <span style={{ color: 'red' }}>❌</span>
+                    ) : item.includes('not Modifiable') ? (
+                      <span style={{ color: 'green' }}>✅</span>
+                    ) : item.includes('Modifiable') ? (
+                      <span style={{ color: 'red' }}>❌</span>
+                    ) : item.includes('Immutable') ? (
+                      <span style={{ color: 'green' }}>✅</span>
+                    ) : (
+                      <span>🔍</span>
+                    )}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
             </li>
           ))}
         </ul>
-        <br></br>
-        <h2>Web Scrape Details:</h2>
-        <ul>
-    {result[1].map((item, index) => (
-      <li key={index}>{item}</li>
-    ))}
-  </ul>
-  <br></br><br></br>
+
+        <br></br><br></br>
+
+        <PieChart data={chartData}></PieChart>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
       </div>
+      //<ClipLoader size={50} color="#3498db" />
     ) : (
-      <p>{error || 'Loading...'}</p>
+      <p>{error || "Loading..."}</p>
     )}
+    
   </div>
 );
 

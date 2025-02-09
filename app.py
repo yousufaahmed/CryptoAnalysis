@@ -3,7 +3,7 @@ from flask_cors import CORS
 from apiTotal import api_total
 from apiTest import api_test
 from webscraper import web_scrape
-
+from agent import crypto_agent
 
 
 app = Flask(__name__)
@@ -19,9 +19,10 @@ def search_get():
         result2 = api_test(query)
         result3 = [(address, (amount / result) * 100) for address, amount in result2]  # Tuples with percentage
         result4 = web_scrape(query)
-        result5 = [result3 , result4]
-        print(result5)
-        return jsonify({"result": result3})
+        result5 = crypto_agent(query)
+        result6 = [result3 , result4, result5]
+        print(result6)
+        return jsonify({"result": result6})
     else:
         return jsonify({"error": "Invalid input"}), 400
 
@@ -30,7 +31,7 @@ def search_post():
     # Get the data sent from the frontend
     data = request.get_json()
     token_address = data.get('query')
-
+    print(token_address)
     if not token_address:
             return jsonify({"error": "Missing token address"}), 400
     
