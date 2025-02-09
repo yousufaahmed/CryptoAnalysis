@@ -1,42 +1,46 @@
-// src/App.js
-
 import React, { useState, useEffect } from 'react';
-// import { BrowserRouter as  Router, Route, Routes } from "react-router-dom";
-import './css/tailwind.css';
-// import './css/App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/App.css';
 
-import Home from './pages/home';
+// Components
 import Header from './components/Header';
 import Footer from './components/Footer';
-// import Home2 from './pages/home2';
+
+// Pages
+import Home from './pages/home';
+import About from './pages/about';
+import Results from './pages/results';
 
 function App() {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/hello')
+    axios.get('http://localhost:8080/api/hello')
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        setGreeting(data.message);
+        setGreeting(response.data.message);
       })
       .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
+        console.error('Error fetching greeting:', error);
       });
   }, []);
 
   return (
-    <div className="App">
-      <Header></Header>
-      <h1 className="App-title">{greeting}</h1>
-      <Home></Home>
-      {/* <Home2></Home2> */}
-      <Footer></Footer>
-    </div>
+    <Router>
+      <div className="App d-flex flex-column min-vh-100">
+        <Header />
+        <h1 className="App-title text-center my-3">{greeting}</h1>
+        <main className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/results" element={<Results />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
