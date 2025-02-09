@@ -92,16 +92,44 @@ const ResultsPage = () => {
     }
   }, [query]);
 
-  return (
-    <div className="container mt-5">
-      <h2>Result for: {query}</h2>
-      {result !== null ? (
-        <p>Result: {result}</p>
-      ) : (
-        <p>{error || 'Loading...'}</p>
-      )}
-    </div>
-  );
+
+  // console.log(result[1]); // Check how many items are received
+
+// ###############################################################################################
+// YOUSUF ADD PIE CHART, TOP 3 INVESTOR PERCENTAGE, TOP 10 INVESTOR PERCENTAGE
+// ###############################################################################################
+return (
+  <div className="container mt-5">
+    <br></br>
+    <h2>Result for: {query}</h2>
+    {result !== null ? (
+      <div>
+        <h2>Addresses and Percentages:</h2>
+        <ul>
+          {result[0].map(([address, percentage], index) => (
+            <li key={index}>
+              <strong>Address:</strong> {address} 
+              <strong>   --    Percentage:</strong> {percentage}%
+              <br></br><br></br>
+            </li>
+          ))}
+        </ul>
+        <br></br>
+        <h2>Web Scrape Details:</h2>
+        <ul>
+    {result[1].map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
+  </ul>
+  <br></br><br></br>
+      </div>
+    ) : (
+      <p>{error || 'Loading...'}</p>
+    )}
+  </div>
+);
+
+  
 };
 
 export default ResultsPage;

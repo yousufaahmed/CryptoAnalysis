@@ -8,6 +8,8 @@ python -m venv env
 
 source env.bin.activate
 
+.\env\Scripts\activate
+
 Install the necessary dependencies: Flask and Flask-CORS.
 
 ```bash
@@ -23,6 +25,8 @@ The Flask server will start and listen on http://localhost:8080.
 ## Frontend Setup (React)
 
 npm install
+
+npm install (other modules if you get an error!!)
 
 Run the React application by executing the following command inside the project folder:
 

@@ -1,0 +1,10 @@
+tavily-python
+langchain
+langchain-openai
+beautifulsoup4
+requests
+base58
+solana
+solders
+
+
