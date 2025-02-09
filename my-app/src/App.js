@@ -1,38 +1,43 @@
 // src/App.js
 
-import React, { Component } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+// import { BrowserRouter as  Router, Route, Routes } from "react-router-dom";
+import './css/tailwind.css';
+// import './css/App.css';
 
-class App extends Component {
-  state = {
-    data: null
-  };
+import Home from './pages/home';
+import Header from './components/Header';
+import Footer from './components/Footer';
+// import Home2 from './pages/home2';
 
-  componentDidMount() {
-    this.callBackendAPI()
-      .then(res => this.setState({ data: res.express }))
-      .catch(err => console.log(err));
-  }
+function App() {
+  const [greeting, setGreeting] = useState('');
 
-  callBackendAPI = async () => {
-    const response = await fetch('/api/data');
-    const body = await response.json();
+  useEffect(() => {
+    fetch('http://localhost:8080/api/hello')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        setGreeting(data.message);
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+  }, []);
 
-    if (response.status !== 200) {
-      throw Error(body.message) 
-    }
-    return body;
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>{this.state.data}</p>
-        </header>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Header></Header>
+      <h1 className="App-title">{greeting}</h1>
+      <Home></Home>
+      {/* <Home2></Home2> */}
+      <Footer></Footer>
+    </div>
+  );
 }
 
 export default App;
