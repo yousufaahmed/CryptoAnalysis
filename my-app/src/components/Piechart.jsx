@@ -42,13 +42,15 @@ const PieChart = ({data}) => {
 
         <div className="info-box-container">
         <div className="info-box">
-          <h4>Top 3 Holder %</h4>
-          <p>{}%</p>
+          <h4>Top 3 Holder Percentage</h4>
+          <br></br>
+          <h5>{(data.values[0] + data.values[1] + data.values[2]).toFixed(2)}%</h5>
         </div>
-
+        
         <div className="info-box">
-          <h4>Top 10 Holder %</h4>
-          <p>{}%</p>
+          <h4>Top 10 Holder Percentage</h4>
+          <br></br>
+          <h5>{(data.values[0] + data.values[1] + data.values[2] + data.values[3] + data.values[4] + data.values[5] + data.values[6] + data.values[7] + data.values[8] + data.values[9]).toFixed(2)}%</h5>
         </div>
       </div>
     </div>

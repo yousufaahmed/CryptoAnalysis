@@ -1,0 +1,30 @@
+
+
+/* Styling for the card to center within the container */
+.card {
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Optionally, style for the pie chart to make it centered */
+.PieChart {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.custom-card {
+    background-color: #f0f0f0; /* Light background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .custom-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+  }

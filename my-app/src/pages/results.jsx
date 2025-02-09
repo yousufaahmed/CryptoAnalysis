@@ -68,7 +68,7 @@ import axios from 'axios';
 import PieChart from '../components/Piechart';
 import { ClipLoader } from 'react-spinners';
 import { Card } from 'react-bootstrap';
-
+import "../css/idk.css"
 const ResultsPage = () => {
   const { search } = useLocation();
   const query = new URLSearchParams(search).get('query');
@@ -128,7 +128,7 @@ return (
         <h2>Cryptocurrency Information:</h2>
         {/* list-style-type: none" */}
 
-        <Card style={{ width: '18rem' }}>
+        <Card className="custom-card" style={{ width: '18rem' }}>
                 <Card.Body>
                   <Card.Text>
                   <strong>Owner Portfolio:</strong> {result[2].owner_portfolio}
@@ -176,6 +176,10 @@ return (
 
         <PieChart data={chartData}></PieChart>
         <br></br><br></br><br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
+        <br></br><br></br><br></br><br></br><br></br><br></br>
+        
       </div>
       //<ClipLoader size={50} color="#3498db" />
     ) : (

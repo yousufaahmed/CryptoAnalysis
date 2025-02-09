@@ -1,8 +1,9 @@
 
 .pie-chart-page {
+  
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items: flex-start;
     padding: 20px;
   }
   
@@ -16,12 +17,14 @@
 
   .pie-chart-page .chart-container {
     width: 200px;
+    margin-top: -900px;
   }
   
 
   .pie-chart-page .info-box-container {
     display: flex;
     flex-direction: column;
+    margin-top: -950px;
     gap: 15px;
   }
   
