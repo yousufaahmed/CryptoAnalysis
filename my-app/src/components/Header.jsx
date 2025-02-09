@@ -10,12 +10,12 @@ function Header() {
     return (
         <Navbar expand="lg" className="bg-body-tertiary sticky-top">
         <Container>
-          <Navbar.Brand href="#home">Crypto Checker</Navbar.Brand>
+          <Navbar.Brand href="/">Crypto Checker</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">About</Nav.Link>
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/about">About</Nav.Link>
               <NavDropdown title="More" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">NOTHING</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
